@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ffb6c1,#ffdce5);
+    overflow:hidden;
+}
+
+/* CARD */
+.card{
+    width:650px;
+    height:750px;
+    position:relative;
+    perspective:1200px;
+}
+
+/* FRONT + INSIDE */
+.card-inner{
+    width:100%;
+    height:100%;
+    position:relative;
+    transition:transform 1s;
+    transform-style:preserve-3d;
+}
+
+.card.open .card-inner{
+    transform:rotateY(180deg);
+}
+
+/* FRONT */
+.front,
+.inside{
+    position:absolute;
+    width:100%;
+    height:100%;
+    border-radius:25px;
+    backface-visibility:hidden;
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+}
+
+/* FRONT DESIGN */
+.front{
+    background:linear-gradient(145deg,#ff4f81,#ff7aa2);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    text-align:center;
+}
+
+.front h1{
+    font-size:52px;
+    margin-bottom:15px;
+}
+
+.front p{
+    font-size:22px;
+    opacity:0.9;
+}
+
+.gift{
+    font-size:90px;
+    margin:20px 0;
+    animation:bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+/* INSIDE LETTER */
+.inside{
+    background:white;
+    transform:rotateY(180deg);
+    padding:40px;
+    display:flex;
+    flex-direction:column;
+    text-align:justify;
+
+    /* FIXES */
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    scrollbar-width:thin;
+    scrollbar-color:#ff7aa2 #ffe4e1;
+}
+
+/* SCROLLBAR FOR CHROME */
+.inside::-webkit-scrollbar{
+    width:8px;
+}
+
+.inside::-webkit-scrollbar-track{
+    background:#ffe4e1;
+    border-radius:10px;
+}
+
+.inside::-webkit-scrollbar-thumb{
+    background:#ff7aa2;
+    border-radius:10px;
+}
+
+.inside h2{
+    color:#ff4f81;
+    font-size:42px;
+    margin-bottom:25px;
+}
+
+.inside p{
+    color:#444;
+    font-size:20px;
+    line-height:1.8;
+}
+
+/* BUTTON */
+.open-btn{
+    position:absolute;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    padding:14px 28px;
+    border:none;
+    border-radius:40px;
+    background:white;
+    color:#ff4f81;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.open-btn:hover{
+    transform:translateX(-50%) scale(1.08);
+}
+
+/* FLOATING HEARTS */
+.hearts span{
+    position:absolute;
+    font-size:24px;
+    animation:float 6s linear infinite;
+    opacity:0.7;
+}
+
+.hearts span:nth-child(1){
+    left:10%;
+    animation-delay:0s;
+}
+
+.hearts span:nth-child(2){
+    left:30%;
+    animation-delay:2s;
+}
+
+.hearts span:nth-child(3){
+    left:70%;
+    animation-delay:1s;
+}
+
+.hearts span:nth-child(4){
+    left:90%;
+    animation-delay:3s;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(100vh) scale(0.5);
+    }
+    100%{
+        transform:translateY(-120vh) scale(1.2);
+    }
+}
+
+/* MOBILE */
+@media(max-width:500px){
+
+    .card{
+        width:330px;
+        height:500px;
+    }
+
+    .front h1{
+        font-size:42px;
+    }
+
+    .inside h2{
+        font-size:34px;
+    }
+
+    .inside p{
+        font-size:17px;
+    }
+
+    .gift{
+        font-size:70px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="hearts">
+    <span>💖</span>
+    <span>✨</span>
+    <span>🎈</span>
+    <span>💖</span>
+</div>
+
+<div class="card" id="card">
+
+    <div class="card-inner">
+
+        <!-- FRONT -->
+        <div class="front">
+            <div class="gift">🎁</div>
+
+            <h1>Happy Birthday!</h1>
+
+            <p>A special surprise awaits you 💌</p>
+
+            <button class="open-btn" onclick="openCard()">
+                Open Letter
+            </button>
+        </div>
+
+        <!-- INSIDE -->
+        <div class="inside">
+
+            <h2>To Someone Special 💖</h2>
+
+            <p>
+              Dear Lia, <br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seventy-three years is the average lifespan of a person that is 26,645 days or 639,480 hours. In every moment we spend, it is not time that is being used; it is life. We spend our lives on small talks, small updates, and conversational check-ins. I have wasted parts of my life on people who were just trying something new, as if they were playing a game, so I decided to play too. In that little game, I first laid my eyes upon you a lively photo that caught my attention and moved my hand to press a button. I stalked your profile to see what kind of person you were, even though I already knew I could not rely on that alone. It made me wait for an opportunity to know you until you reacted differently from the rest. The first hour was light just two people not knowing if it would all be over the next day. But somehow, something worked. Something clicked. <br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Happy 18th birthday babe, I know this is a bit late for me to say but I would like to know you more if you will still give me that chance. I want to be by your side even in your lowest times. Let me be the one to lift the world off of you when you feel like it is crushing you down and let me slow down time when it feels fast and rushed. We can take it slow if you think we are going fast, we can take breaks if you are feeling pressured or we can do anything that will help you until you are all better. I will be straightforward, I want to build something with you that will last and would love to know you more. Your favorites, your dislikes, and know every little thing that make you, you. Now that it is your special day be reminded of that love you share not just with me but with every people. I know I’m not present in those 18 years of your life but I am so proud of the person you have become. <br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;At last, may we able to do our plan dates and hangouts together. And enjoy our presence every minute of our life passes. Caressing each other souls feeling every touch. Let us keep on building the trust that will be a strong foundation in the long run. I always want you to be true to me and I promise to do the same. We know that this is not a smooth road, things may go the other way but I assure you to be by your side when that happen. Understanding a completely different person is going to be a challenge for us, but I believe that is what makes everything meaningful. Two people raised by different experiences, carrying different fears, dreams, and ways of loving, trying to meet halfway and choose each other every day. There will be misunderstandings, silent nights, and moments when words fail us, but I hope we never let pride become louder than our willingness to understand. <br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I do not ask for perfection from you, nor can I promise perfection from myself. What I can promise is effort the effort to listen, to stay, and to grow with you through every season of our lives. Because love, for me, is not only about the beautiful and easy moments. It is also about choosing someone even when things become difficult and uncertain. <br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So if someday the world becomes too heavy for us, let this be our reminder: we started with strangers sharing small conversations, and somehow those moments became something worth keeping. And maybe, in this limited life we are given, finding someone whose presence makes time feel lighter is one of the rarest things a person can ever have.
+<br><br>
+- Mav, XOXO
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function openCard(){
+    document.getElementById("card").classList.toggle("open");
+}
+
+</script>
+
+</body>
+</html>
